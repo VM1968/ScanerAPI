@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\ScannerAPI</_PublishTargetUrl>
+    <History>True|2023-02-16T10:47:30.1693454Z;True|2023-02-16T13:41:32.7117248+03:00;True|2023-02-07T14:26:41.8544041+03:00;True|2023-02-07T14:24:46.5114700+03:00;True|2023-02-07T14:10:13.4731424+03:00;True|2023-02-07T14:09:52.1455529+03:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="Program.cs">
+      <publishTime>02/16/2023 12:48:52</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
