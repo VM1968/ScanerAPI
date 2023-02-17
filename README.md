@@ -1,6 +1,5 @@
 # ScanerAPI
- WIA Scan in the browser
-
+WIA Scan in the browser
 
 URL: "http://localhost:8080"
 
@@ -21,83 +20,68 @@ not necessary<br>
 }
 </pre>
 <strong>Response Formats</strong>
-<pre>{
-    "sources": {
-        "selectedSource": "0",
-        "sourcesList": [
-            {
-                "key": "{6BDD1FC6-810F-11D0-BEC7-08002BE2092F}\\0000",
-                "value": "HP LaserJet MFP M28-M31 (USB)"
-            }
-        ]
-    },
-    "flatbedResolutions": [
-        200,
-        300,
-        600
-    ],
-    "pixelTypes": [
-        {
-            "Id": 1,
-            "Color": "Color",
-            "Description": "Цветное"
-        },
-        {
-            "Id": 2,
-            "Color": "Greyscale",
-            "Description": "Оттенки серого"
-        },
-        {
-            "Id": 4,
-            "Color": "BlackWhite",
-            "Description": "Черно-белое"
-        }
-    ],
-    "fileFormats": [
-        {
-            "Name": "JPG"
-        },
-        {
-            "Name": "PNG"
-        },
-        {
-            "Name": "TIF"
-        },
-        {
-            "Name": "BMP"
-        },
-        {
-            "Name": "GIF"
-        }
-    ],
-    "allowedFormats": [
-        {
-            "Width": 8.27,
-            "Height": 11.69,
-            "Name": "A4"
-        },
-        {
-            "Width": 5.83,
-            "Height": 8.27,
-            "Name": "A5"
-        },
-        {
-            "Width": 8.27,
-            "Height": 5.83,
-            "Name": "A5 LS"
-        },
-        {
-            "Width": 4.13,
-            "Height": 5.84,
-            "Name": "A6"
-        },
-        {
-            "Width": 5.84,
-            "Height": 4.13,
-            "Name": "A6 LS"
-        }
-    ]
-}
+<pre>
+{
+ "sources": 	{
+ 		"selectedSource": "0",
+  		"sourcesList": [{
+                		"key": "{6BDD1FC6-810F-11D0-BEC7-08002BE2092F}\\0000",
+                		"value": "HP LaserJet MFP M28-M31 (USB)"
+            			}]
+    		},
+    		"flatbedResolutions": [200,300,600],
+    		"pixelTypes": [
+        			{
+            			"Id": 1,
+            			"Color": "Color",
+	       			"Description": "Цветное"
+        			},
+        			{
+            			"Id": 2,
+            			"Color": "Greyscale",
+            			"Description": "Оттенки серого"
+        			},
+        			{
+            			"Id": 4,
+            			"Color": "BlackWhite",
+            			"Description": "Черно-белое"
+        			}
+    				],
+    		"fileFormats": [
+        			{"Name": "JPG"},
+        			{"Name": "PNG"},
+        			{"Name": "TIF"},
+        			{"Name": "BMP"},
+        			{"Name": "GIF"}
+    				],
+    		"allowedFormats": [
+				{
+            			"Width": 8.27,
+            			"Height": 11.69,
+            			"Name": "A4"
+        			},
+        			{
+            			"Width": 5.83,
+            			"Height": 8.27,
+            			"Name": "A5"
+        			},
+        			{
+            			"Width": 8.27,
+            			"Height": 5.83,
+            			"Name": "A5 LS"
+        			},
+        			{
+            			"Width": 4.13,
+            			"Height": 5.84,
+            			"Name": "A6"
+        			},
+        			{
+            			"Width": 5.84,
+            			"Height": 4.13,
+            			"Name": "A6 LS"
+        			}
+    				]
+				}
 </pre>
 <br><br>
 <strong>Scanning</strong><br>
@@ -130,7 +114,7 @@ Content-Type: application/json;<br>
 Content-Type: image/[png,jpg,tif,bmp,gif]<br>
 <pre>blob:http:// ....</pre>
 <br><br>
-#Sample JavaScript
+<strong>Sample JavaScript</strong>
 <pre>
 //GetScannerParameters
 const url="http://localhost:8080/api/";
@@ -144,11 +128,13 @@ const postData = async (url = '', data = {}) => {
             });
             return response.json();
         }
+
 const jsonData = { "method": "GetScannerParameters", "sourceIndex": 0 };
       postData(url + "GetScannerParameters", jsonData)
             .then((data) => {
                   console.log(data);
                 });	
+
 
 //Scanning
 const scanWIA = async (url = '', data = {}) => {
@@ -162,19 +148,19 @@ const scanWIA = async (url = '', data = {}) => {
             return response;
         }
 var scanParam = {
-					"method":"Scan",
-					"source": "0",
-					"dpi":"200",
-					"ColorMode":4,
-					"FFormat":"PNG",
-					"PageFormat":{
-									"Width": 8.27,
-									"Height": 5.83,
-									"Name": "A5 LS"
-								},
-					"Brightness":-400,
-					"Contrast":0  
-				}
+		"method":"Scan",
+		"source": "0",
+		"dpi":"200",
+		"ColorMode":4,
+		"FFormat":"PNG",
+		"PageFormat":{
+				"Width": 8.27,
+				"Height": 5.83,
+				"Name": "A5 LS"
+			},
+		"Brightness":-400,
+		"Contrast":0
+		}
 
 //add div id ="Scanned"
 scanWIA(url + "Scan", scanParam)
@@ -191,6 +177,7 @@ scanWIA(url + "Scan", scanParam)
                         Scanned.appendChild(img);
                     })
                 });
+
 // Save or ...
 // add button id="ButtonSave"
 // fileName - according to your request, change in the program
@@ -204,8 +191,4 @@ scanWIA(url + "Scan", scanParam)
             link.click();
             URL.revokeObjectURL(link.href);
         }				
-				
-	
 </pre>
-
-
