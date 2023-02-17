@@ -14,14 +14,14 @@ Content-Type: application/json;<br>
 <br>
 <strong>Request Information</strong><br> 
 not necessary<br>
-(Body - raw - JSON) ()<br>
+(Body - raw - JSON)<br>
 <pre>{
     "method":"GetScannerParameters",<br>
     "sourceIndex": 0<br>
 }
 </pre>
 <strong>Response Formats</strong>
-{
+<pre>{
     "sources": {
         "selectedSource": "0",
         "sourcesList": [
@@ -98,7 +98,7 @@ not necessary<br>
         }
     ]
 }
-
+</pre>
 <br><br>
 <strong>Scanning</strong>
 Resource URI: [URL]/api/Scan<br>
@@ -109,7 +109,7 @@ Description: Scanning and return image.<br>
 Content-Type: application/json;<br>
 <br>
 <strong>Request Information</strong><br> 
-(Body - raw - JSON) ()<br>
+(Body - raw - JSON)<br>
 <pre>{
     "method":"Scan",
     "source": "0",
@@ -125,7 +125,9 @@ Content-Type: application/json;<br>
     "Contrast":0  
 }
 </pre>
-<strong>Response Formats</strong>
-
+<br>
+<strong>Response Formats</strong><br>
+Content-Type: image/[png,jpg,tif,bmp,gif]<br>
+<pre>blob:http:// ....</pre>
 
 
