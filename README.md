@@ -16,8 +16,8 @@ Content-Type: application/json;<br>
 not necessary<br>
 (Body - raw - JSON)<br>
 <pre>{
-    "method":"GetScannerParameters",<br>
-    "sourceIndex": 0<br>
+    "method":"GetScannerParameters",
+    "sourceIndex": 0
 }
 </pre>
 <strong>Response Formats</strong>
@@ -100,7 +100,7 @@ not necessary<br>
 }
 </pre>
 <br><br>
-<strong>Scanning</strong>
+<strong>Scanning</strong><br>
 Resource URI: [URL]/api/Scan<br>
 Metod: POST<br>
 Description: Scanning and return image.<br>
