@@ -161,7 +161,6 @@ const scanWIA = async (url = '', data = {}) => {
             });
             return response;
         }
-
 var scanParam = {
 					"method":"Scan",
 					"source": "0",
@@ -177,7 +176,7 @@ var scanParam = {
 					"Contrast":0  
 				}
 
-//add <div id ="Scanned"></div>
+//add div id ="Scanned">/div
 scanWIA(url + "Scan", scanParam)
                 .then((data) => {
                     let Scanned = document.getElementById("Scanned");
@@ -193,11 +192,9 @@ scanWIA(url + "Scan", scanParam)
                         Scanned.appendChild(img);
                     })
                 });
-
 // Save or ...
 // add button id="ButtonSave"
 // fileName - according to your request, change in the program
-
         var ButtSave = document.getElementById("ButtonSave"); 
         ButtSave.addEventListener('click', SaveClick, false);
         function SaveClick() {
