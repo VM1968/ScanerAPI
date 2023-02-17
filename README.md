@@ -130,7 +130,7 @@ Content-Type: application/json;<br>
 Content-Type: image/[png,jpg,tif,bmp,gif]<br>
 <pre>blob:http:// ....</pre>
 <br><br>
-<strong>Sample JavaScript</strong>
+#Sample JavaScript
 <pre>
 //GetScannerParameters
 const url="http://localhost:8080/api/";
@@ -176,7 +176,7 @@ var scanParam = {
 					"Contrast":0  
 				}
 
-//add div id ="Scanned">/div
+//add div id ="Scanned"
 scanWIA(url + "Scan", scanParam)
                 .then((data) => {
                     let Scanned = document.getElementById("Scanned");
@@ -184,7 +184,6 @@ scanWIA(url + "Scan", scanParam)
                     if (Scanned.children.length > 0) {
                         Scanned.replaceChildren();
                     }
-
                     data.blob().then(function (blob) {
                         fileDate = blob;
                         objectURL = URL.createObjectURL(fileDate);
