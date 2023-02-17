@@ -15,11 +15,11 @@ Content-Type: application/json;<br>
 <strong>Request Information</strong><br> 
 not necessary<br>
 (Body - raw - JSON) ()<br>
-{<br>
+<pre>{
     "method":"GetScannerParameters",<br>
     "sourceIndex": 0<br>
-}<br>
-
+}
+</pre>
 <strong>Response Formats</strong>
 {
     "sources": {
@@ -99,6 +99,33 @@ not necessary<br>
     ]
 }
 
+<br><br>
+<strong>Scanning</strong>
+Resource URI: [URL]/api/Scan<br>
+Metod: POST<br>
+Description: Scanning and return image.<br>
+<br>
+<strong>Headers Information</strong><br>
+Content-Type: application/json;<br>
+<br>
+<strong>Request Information</strong><br> 
+(Body - raw - JSON) ()<br>
+<pre>{
+    "method":"Scan",
+    "source": "0",
+    "dpi":"200",
+    "ColorMode":4,
+    "FFormat":"PNG",
+    "PageFormat":{
+            "Width": 8.27,
+            "Height": 5.83,
+            "Name": "A5 LS"
+        },
+    "Brightness":-400,
+    "Contrast":0  
+}
+</pre>
+<strong>Response Formats</strong>
 
 
 
