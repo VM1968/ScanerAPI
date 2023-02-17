@@ -177,9 +177,9 @@ var scanParam = {
 					"Contrast":0  
 				}
 
+//add <div id ="Scanned"></div>
 scanWIA(url + "Scan", scanParam)
                 .then((data) => {
-                    //<div id ="Scanned"></div>
                     let Scanned = document.getElementById("Scanned");
                     let img = document.createElement("IMG");
                     if (Scanned.children.length > 0) {
@@ -194,11 +194,14 @@ scanWIA(url + "Scan", scanParam)
                     })
                 });
 
-//Save or ...
-        var ButtSave = document.getElementById("ButtonSave"); //add button id="ButtonSave"
+// Save or ...
+// add button id="ButtonSave"
+// fileName - according to your request, change in the program
+
+        var ButtSave = document.getElementById("ButtonSave"); 
         ButtSave.addEventListener('click', SaveClick, false);
         function SaveClick() {
-            let fileName = "file.png" ; /// according to your request, change in the program
+            let fileName = "file."+ scanParam.FFormat.toLowerCase(); ; 
             let link = document.createElement('a');
             link.download = fileName;
             link.href = URL.createObjectURL(fileDate);
