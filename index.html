@@ -64,19 +64,13 @@
     <hr class="mt-1 mb-4">
 
     <div class="container font-subtitle font-light">
-
         <!-- Форма обратной связи -->
         <div class="row">
             <div class="col-md-6">
                 <div class="card" id="ScanForm">
-
                     <div class="card-body position-relative">
                         <!-- <form id="ScanForm"> -->
                         <!-- <fieldset> -->
-                        <div class="form-row">
-                            <label for="server_url">ScannerAPI: </label>
-                            <input id="server_url" class="form-control" type="text">
-                        </div><br>
                         <div class="form-field">
                             <label for="Form_Dpi">Сканер:</label>
                             <select id="Source" name="Source"></select>
@@ -132,20 +126,12 @@
 
     <script>
         //из отдельного расположения
-        //const url = "http://localhost:8080/api/";
+		//const url = "http://localhost:8080/api/";
         //со встроенного сервера 
-        const url = getCookie("server_url") || "api/";
-        var server_url = document.getElementById("server_url");
-        server_url.value = url;
-        server_url.addEventListener("change",saveUrl);
-        function saveUrl(evt){
-            setCookie("server_url",evt.target.value);
-            location.reload();
-        }
-
-
-        // Определяем функцию которая принимает в качестве параметров url и данные которые необходимо обработать:
-        const postData = async (url = '', data = {}) => {
+		const url = "api/";
+        
+		// Определяем функцию которая принимает в качестве параметров url и данные которые необходимо обработать:
+		const postData = async (url = '', data = {}) => {
             // Формируем запрос
             const response = await fetch(url, {
                 // Метод, если не указывать, будет использоваться GET
@@ -254,7 +240,7 @@
             Brightness.value = Brightnessnum.value;
         }
         //Контрастность
-
+        
         Contrastnum.value = 0;
         Contrast.addEventListener('change', onCtChange, false);
         Contrastnum.addEventListener('change', onCtnChange, false);
