@@ -129,5 +129,84 @@ Content-Type: application/json;<br>
 <strong>Response Formats</strong><br>
 Content-Type: image/[png,jpg,tif,bmp,gif]<br>
 <pre>blob:http:// ....</pre>
+<br><br>
+<strong>Sample JavaScript</strong>
+<pre>
+//GetScannerParameters
+const url="http://localhost:8080/api/";
+const postData = async (url = '', data = {}) => {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            return response.json();
+        }
+const jsonData = { "method": "GetScannerParameters", "sourceIndex": 0 };
+      postData(url + "GetScannerParameters", jsonData)
+            .then((data) => {
+                  console.log(data);
+                });	
+
+//Scanning
+const scanWIA = async (url = '', data = {}) => {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            return response;
+        }
+
+var scanParam = {
+    "method":"Scan",
+    "source": "0",
+    "dpi":"200",
+    "ColorMode":4,
+    "FFormat":"PNG",
+    "PageFormat":{
+            "Width": 8.27,
+            "Height": 5.83,
+            "Name": "A5 LS"
+        },
+    "Brightness":-400,
+    "Contrast":0  
+}
+
+scanWIA(url + "Scan", scanParam)
+                .then((data) => {
+                    //<div id ="Scanned"></div>
+                    let Scanned = document.getElementById("Scanned");
+                    let img = document.createElement("IMG");
+                    if (Scanned.children.length > 0) {
+                        Scanned.replaceChildren();
+                    }
+
+                    data.blob().then(function (blob) {
+                        fileDate = blob;
+                        objectURL = URL.createObjectURL(fileDate);
+                        img.src = objectURL;
+                        Scanned.appendChild(img);
+                    })
+                });
+
+//Save or ...
+        var ButtSave = document.getElementById("ButtonSave"); //add button id="ButtonSave"
+        ButtSave.addEventListener('click', SaveClick, false);
+        function SaveClick() {
+            let fileName = "file.png" ; /// according to your request, change in the program
+            let link = document.createElement('a');
+            link.download = fileName;
+            link.href = URL.createObjectURL(fileDate);
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }				
+				
+	
+</pre>
 
 
