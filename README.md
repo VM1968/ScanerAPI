@@ -163,19 +163,19 @@ const scanWIA = async (url = '', data = {}) => {
         }
 
 var scanParam = {
-    "method":"Scan",
-    "source": "0",
-    "dpi":"200",
-    "ColorMode":4,
-    "FFormat":"PNG",
-    "PageFormat":{
-            "Width": 8.27,
-            "Height": 5.83,
-            "Name": "A5 LS"
-        },
-    "Brightness":-400,
-    "Contrast":0  
-}
+					"method":"Scan",
+					"source": "0",
+					"dpi":"200",
+					"ColorMode":4,
+					"FFormat":"PNG",
+					"PageFormat":{
+									"Width": 8.27,
+									"Height": 5.83,
+									"Name": "A5 LS"
+								},
+					"Brightness":-400,
+					"Contrast":0  
+				}
 
 scanWIA(url + "Scan", scanParam)
                 .then((data) => {
