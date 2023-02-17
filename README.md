@@ -4,21 +4,21 @@
 
 URL: "http://localhost:8080"
 
-<strong>Query scanner settings</strong>
-Resource URI: [URL]/api/GetScannerParameters
-Metod: POST
-Description: Returns some scanner settings.
-
-<strong>Headers Information</strong>
-Content-Type: application/json;
-
-<strong>Request Information</strong> 
-not necessary
-(Body - raw - JSON) ()
-{
-    "method":"GetScannerParameters",
-    "sourceIndex": 0
-}
+<strong>Query scanner settings</strong><br>
+Resource URI: [URL]/api/GetScannerParameters<br>
+Metod: POST<br>
+Description: Returns some scanner settings.<br>
+<br>
+<strong>Headers Information</strong><br>
+Content-Type: application/json;<br>
+<br>
+<strong>Request Information</strong><br> 
+not necessary<br>
+(Body - raw - JSON) ()<br>
+{<br>
+    "method":"GetScannerParameters",<br>
+    "sourceIndex": 0<br>
+}<br>
 
 <strong>Response Formats</strong>
 {
