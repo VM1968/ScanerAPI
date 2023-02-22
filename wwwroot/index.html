@@ -7,6 +7,13 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="assets/imgareaselect/css/imgareaselect-animated.css">
+
+    <script src="assets/imgareaselect/scripts/jquery-1.9.0.min.js"></script>
+    <script src="assets/imgareaselect/scripts/jquery.imgareaselect.dev.js"></script>
+
+
     <style>
         #ScanForm {
             background-color: rgba(235, 242, 248, 0.9);
@@ -120,13 +127,37 @@
 
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-body position-relative">
-                        <button class="btn btn-primary mb-3" id="ButtonSave">Сохранить</button>
-                        <div id="Scanned"></div>
+                    <div id="Scanned"></div>
+                    <!-- <div class="card-body position-relative">
+                    </div> -->
+                    <div class="card-footer">
+                        <button class="btn btn-primary mb-3" id="ButtonSave" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Сохранить">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-save" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                            </svg></button>
+                        <button class="btn btn-primary mb-3" id="ButtonSelect" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Включить выделение">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-textarea" viewBox="0 0 16 16">
+                                <path
+                                    d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                            </svg>
+                        </button>
+                        <button class="btn btn-primary mb-3" id="ButtonCrop" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Обрезать до выделения">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-crop" viewBox="0 0 16 16">
+                                <path
+                                    d="M3.5.5A.5.5 0 0 1 4 1v13h13a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2H3.5a.5.5 0 0 1-.5-.5V4H1a.5.5 0 0 1 0-1h2V1a.5.5 0 0 1 .5-.5zm2.5 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4H6.5a.5.5 0 0 1-.5-.5z" />
+                            </svg></button>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
 
@@ -137,9 +168,9 @@
         const url = getCookie("server_url") || "api/";
         var server_url = document.getElementById("server_url");
         server_url.value = url;
-        server_url.addEventListener("change",saveUrl);
-        function saveUrl(evt){
-            setCookie("server_url",evt.target.value);
+        server_url.addEventListener("change", saveUrl);
+        function saveUrl(evt) {
+            setCookie("server_url", evt.target.value);
             location.reload();
         }
 
@@ -298,7 +329,8 @@
                 .then((data) => {
                     //        console.log(data);
                     let Scanned = document.getElementById("Scanned");
-                    let img = document.createElement("IMG");
+                    var myimg = document.createElement("IMG");
+                    myimg.id = "origimg";
                     if (Scanned.children.length > 0) {
                         Scanned.replaceChildren();
                     }
@@ -306,10 +338,13 @@
                     data.blob().then(function (blob) {
                         fileDate = blob;
                         objectURL = URL.createObjectURL(fileDate);
-                        img.src = objectURL;
-                        Scanned.appendChild(img);
+                        myimg.src = objectURL;
+                        Scanned.appendChild(myimg);
                         ButtScan.removeAttribute("disabled");
                         ButtSave.removeAttribute("disabled");
+                        ButtSelect.removeAttribute("disabled");
+                        //Butt.removeAttribute("disabled");
+
                     })
 
                 });
@@ -328,6 +363,58 @@
             link.click();
             URL.revokeObjectURL(link.href);
         }
+        //Включить выделение
+        var ButtSelect = document.getElementById("ButtonSelect");
+        ButtSelect.setAttribute("disabled", "");
+        ButtSelect.addEventListener('click', SelectClick, false);
+        var MySelection;
+        function SelectClick() {
+            $('#origimg').imgAreaSelect({
+                handles: true,
+                onSelectEnd: function (img, selection) {
+                    MySelection = selection;
+                    ButtCrop.removeAttribute("disabled");
+                }
+            });
+
+        }
+
+
+        //Обрезать
+        var ButtCrop = document.getElementById("ButtonCrop");
+        ButtCrop.setAttribute("disabled", "");
+        ButtCrop.addEventListener('click', CropClick, false);
+        function CropClick() {
+
+            const canvas = document.createElement('canvas');//document.getElementById("mycanvas");
+            canvas.width=MySelection.width;
+            canvas.height=MySelection.height;
+            const ctx = canvas.getContext('2d');
+            let img = document.getElementById('origimg');
+            let kf1 = img.naturalWidth / img.width;
+            let kf2 = img.naturalHeight / img.height;
+
+            //console.log(img);
+            ctx.drawImage(img, MySelection.x1 * kf1, MySelection.y1 * kf2, MySelection.width * kf1, MySelection.height * kf2, 0, 0, MySelection.width, MySelection.height);
+
+            $('#origimg').imgAreaSelect({ remove: true });
+            let Scanned = document.getElementById("Scanned");
+            if (Scanned.children.length > 0) {
+                Scanned.replaceChildren();
+            }
+            var myimg = document.createElement("IMG");
+            myimg.id = "origimg";
+            myimg.src = canvas.toDataURL(fileDate.type);
+            Scanned.appendChild(myimg);
+
+            canvas.toBlob((blob) => {
+                fileDate = blob;
+            });
+
+
+            ButtCrop.setAttribute("disabled", "");
+
+        }
 
         //для хранения последних настроек
         function setCookie(key, value) {
@@ -342,9 +429,12 @@
         }
 
 
+
+
     </script>
     <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
