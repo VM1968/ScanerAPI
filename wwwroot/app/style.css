@@ -1,0 +1,142 @@
+  .modal-custom {
+            max-width: 60%;
+        }
+
+        .modal-content-custom {
+            background: #f8f9fa;
+            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .window-titlebar {
+            background: #2196f3;
+            color: #fff;
+            padding: 0.3em 1em;
+            display: flex;
+            align-items: center;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            height: 32px;
+        }
+
+        .window-icon {
+            width: 18px;
+            height: 18px;
+            background: url('./../assets/css/img/favicon16x16.png') no-repeat center/contain;
+            margin-right: 8px;
+        }
+
+        .window-title {
+            flex: 1;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 3px;
+        }
+
+        .control-btn {
+            width: 18px;
+            height: 18px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            margin-left: 2px;
+        }
+
+        .closebtn {
+            background: white;
+            mask-image: url("./../assets/css/img/x-square.svg");
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: cover;
+        }
+
+        .pdfbtn {
+            /* background: #2196f3; */
+            background: red;
+            mask-image: url("./../assets/css/img/filetype-pdf.svg");
+            mask-repeat: no-repeat;
+            mask-size: 18px;
+            padding: 0px 0px 0px 20px;
+        }
+        
+        #ScanForm .form-field {
+            display: flex;
+            padding: 0 0 2pt 0;
+        }
+
+        #ScanForm label {
+            flex: 1;
+        }
+      
+
+        .desktop-input,
+        /* .form-select, */
+         .form-control 
+        { 
+            border-radius: 3px !important;
+            border: 1px solid #bfc7ce !important;
+            background: #f5f7fa !important;
+            font-size: 0.95em;
+            padding: 4px 8px;
+            width: 70%;
+        }
+
+        .sliderinput {
+            width: 70%;
+        }
+
+        .desktop-slider {
+            accent-color: #2196f3;
+            width: 70%;
+        }
+
+        .sliderinput input[type="text"] {
+            border-radius: 3px !important;
+            border: 1px solid #bfc7ce !important;
+            font-size: 0.95em;
+            padding: 4px 8px;
+            background: #f5f7fa !important;
+            width: 20%;
+        }
+
+        .desktop-btn {
+            background: #e3f0fc;
+            border: 1px solid #2196f3;
+            color: #2196f3;
+            border-radius: 3px;
+            transition: background 0.2s;
+            font-weight: 500;
+        }
+
+        .desktop-btn:hover {
+            background: #2196f3;
+            color: #fff;
+        }
+
+        #Scanned {
+            width: 100%;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .window-footer {
+            background: #ececec;
+            padding: 6px 8px;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            /* border-top: 1px solid #bfc7ce; */
+        }
+
+        .toast-container {
+            top: 10% !important;
+            left: 20% !important;
+        }

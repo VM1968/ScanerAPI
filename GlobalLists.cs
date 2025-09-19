@@ -55,25 +55,25 @@
     class PixelType
     {
         public int Id { get; set; }
-        public string Color { get; set; }
-        public string Description { get; set; }
+        public string? Color { get; set; }
+        public string? Description { get; set; }
     }
     public class PageFormat
     {
         public float Width { get; set; }
         public float Height { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 
     class FileType
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 
     public class ResultsParam
     {
-        public string key { get; set; }
-        public string value { get; set; }
+        public string? key { get; set; }
+        public string? value { get; set; }
     }
 
 }

@@ -1,440 +1,231 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="ru"> <!--V 12 09 2025-->
 
-<head>
+<head> <!-- Обязательные метатеги -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- jQuery UI CSS (для визуальной части) -->
+    <link rel="stylesheet" href="assets/jquery-ui/dist/jquery-ui.min.css">
 
     <link rel="stylesheet" href="assets/imgareaselect/css/imgareaselect-animated.css">
 
-    <script src="assets/imgareaselect/scripts/jquery-1.9.0.min.js"></script>
-    <script src="assets/imgareaselect/scripts/jquery.imgareaselect.dev.js"></script>
 
+    <link rel="stylesheet" href="app/style.css">
 
     <style>
-        #ScanForm {
-            background-color: rgba(235, 242, 248, 0.9);
-        }
-
-        #ScanForm label {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 14px;
-            /* text-transform: uppercase; */
-            padding: 10px 0px 10px 10px;
-            color: #1a0ec9;
-        }
-
-        #ScanForm select {
-            position: absolute;
-            background-color: rgba(248, 219, 219, 0.5);
-            color: #ee3c45;
-            left: 40%;
-            border: none;
-            box-shadow: none;
-            border-radius: 5px;
-        }
-
-        #ScanForm .form-row {
-            display: flex;
-        }
-
-        #ScanForm .form-row-item {
-            padding-right: 15px;
-        }
-
-        #Brightnessnum,
-        #Contrastnum {
-            position: absolute;
-            left: 80%;
-            width: 15%;
-        }
-
-        #ScanForm .form-row .form-range {
-            position: absolute;
-            left: 30%;
-            width: 50%;
-        }
-
-        img {
-            width: 100%;
-        }
+        
     </style>
-    <title>WIA Scanner</title>
+
+
+    <title>Scaner API</title>
 </head>
 
 <body>
 
-    <h1 class="text-center h4 mt-4 font-title font-white">Сканирование документов</h1>
-    <hr class="mt-1 mb-4">
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scanFormWindow"
+        textforelement="scanbtn">
+        Сканировать
+    </button> -->
 
-    <div class="container font-subtitle font-light">
 
-        <!-- Форма обратной связи -->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card" id="ScanForm">
+    <div class="container mt-5">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a id="" class="nav-link desktop-btn" data-bs-toggle="modal"
+                                data-bs-target="#scanFormWindow" textforelement="scanbtn" href="#">Сканировать</a>
+                        </li>
+                        <!-- <li class="nav-item"><a class="nav-link<?=$page == 'recipe' ? ' active' : ''?>"
+                        href="?page=recipe">Recipe</a></li>
+                <li class="nav-item"><a class="nav-link<?=$page == 'calc' ? ' active' : ''?>" href="?page=calc">Cost
+                        Calculator</a></li>
+                <li class="nav-item ms-auto"><span class="nav-link disabled">User:
+                        <?=htmlspecialchars($_SESSION['user'])?>
+                    </span></li>
+                <li class="nav-item"><a class="nav-link text-danger" href="?page=logout">Logout</a></li> -->
+                    </ul>
+                    <select id="langSelect" class="d-flex" style="width:120px;">
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                        <!-- Add more languages here -->
+                    </select>
 
-                    <div class="card-body position-relative">
-                        <!-- <form id="ScanForm"> -->
-                        <!-- <fieldset> -->
-                        <div class="form-row">
-                            <label for="server_url">ScannerAPI: </label>
-                            <input id="server_url" class="form-control" type="text">
-                        </div><br>
-                        <div class="form-field">
-                            <label for="Form_Dpi">Сканер:</label>
-                            <select id="Source" name="Source"></select>
-                        </div>
-                        <div class="form-field">
-                            <label for="PFormat">Формат страницы:</label>
-                            <select id="PFormat" name="PFormat"></select>
-                        </div>
-                        <div class="form-field">
-                            <label for="Color">Цвет:</label>
-                            <select id="Color" name="Color"></select>
-                        </div>
-                        <div class="form-field">
-                            <label for="Dpi">Разрешение(DPI):</label>
-                            <select id="Dpi" name="Dpi"></select>
-                        </div>
-                        <div class="form-field">
-                            <label for="FFormat">Тип файла:</label>
-                            <select id="FFormat" name="FFormat"></select>
-                        </div>
-                        <div class="form-row">
-                            <label for="Brightness" class="form-row-item form-label" id="Brightnesslab">Яркость:</label>
-                            <input type="range" class="form-row-item form-range" min="-1000" max="1000" step="1"
-                                id="Brightness">
-                            <input id="Brightnessnum" class="form-control" type="text">
-                        </div>
 
-                        <div class="form-row">
-                            <label for="Contrast" class="form-row-item form-label">Контрастность:</label>
-                            <input type="range" class="form-row-item form-range" min="-1000" max="1000" step="1"
-                                id="Contrast">
-                            <input id="Contrastnum" class="form-control" type="text">
-                        </div>
-                        <!-- </fieldset> -->
-                        <button class="btn btn-primary mb-3" id="ButtonScan">Сканирование</button>
-
-                        <!-- </form> -->
-                    </div>
                 </div>
             </div>
+        </nav>
+        <table class="table table-striped table-hover" id="scanList">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th textforelement="fileth">Файл</th>
+                    <th textforelement="lsth">Альбомный</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        <button class="btn desktop-btn" href="#" id="PDFbtn"> <i class="pdfbtn"></i> <span textforelement="pdfbtn">в PDF</span></button>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 
-            <div class="col-md-4">
-                <div class="card">
-                    <div id="Scanned"></div>
-                    <!-- <div class="card-body position-relative">
-                    </div> -->
-                    <div class="card-footer">
-                        <button class="btn btn-primary mb-3" id="ButtonSave" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Сохранить">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-save" viewBox="0 0 16 16">
-                                <path
-                                    d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
-                            </svg></button>
-                        <button class="btn btn-primary mb-3" id="ButtonSelect" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Включить выделение">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-textarea" viewBox="0 0 16 16">
-                                <path
-                                    d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                            </svg>
+    <div class="modal" id="scanFormWindow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-custom modal-dialog-scrollable">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header window-titlebar">
+                    <span class="window-icon"></span>
+                    <span class="modal-title window-title" style="display: inline-block" id="scanFormWindowLabel"
+                        textforelement="scanFormWindowLabel">Сканирование</span>
+                    <div class="window-controls">
+                        <!-- <button class="control-btn"></button>
+                        <button class="control-btn"></button> -->
+                        <button class="control-btn closebtn" data-bs-dismiss="modal" data-bs-toggle="tooltip"
+                            title="Закрыть" textforelement="closebtn"><i class="bi bi-x-square"></i>
                         </button>
-                        <button class="btn btn-primary mb-3" id="ButtonCrop" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Обрезать до выделения">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-crop" viewBox="0 0 16 16">
-                                <path
-                                    d="M3.5.5A.5.5 0 0 1 4 1v13h13a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2H3.5a.5.5 0 0 1-.5-.5V4H1a.5.5 0 0 1 0-1h2V1a.5.5 0 0 1 .5-.5zm2.5 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4H6.5a.5.5 0 0 1-.5-.5z" />
-                            </svg></button>
                     </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6 p-4">
+                            <form id="ScanForm">
+                                <!-- <div class="card-body position-relative"> -->
+                                <!-- <form id="ScanForm"> -->
+                                <!-- <fieldset> -->
+                                <div class="form-field">
+                                    <label for="server_url">ScannerAPI: </label>
+                                    <input id="server_url" class="form-control" type="text">
+                                </div>
+                                <div class="form-field">
+                                    <label for="Source" textforelement="labelSource">Сканер:</label>
+                                    <select class=" desktop-input" id="Source" name="Source"></select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="PFormat" textforelement="labelPFormat">Формат страницы:</label>
+                                    <select class=" desktop-input" id="PFormat" name="PFormat"></select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="Color" textforelement="labelColor">Цвет:</label>
+                                    <select class=" desktop-input" id="Color" name="Color"></select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="Dpi" textforelement="labelDpi">Разрешение(DPI):</label>
+                                    <select class=" desktop-input" id="Dpi" name="Dpi"></select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="FFormat" textforelement="labelFFormat">Тип файла:</label>
+                                    <select class=" desktop-input" id="FFormat" name="FFormat"></select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="Brightness" class=" form-label" id="Brightnesslab"
+                                        textforelement="labelBrightness">Яркость:</label>
+                                    <span class="sliderinput"><input type="range"
+                                            class=" form-range desktop-slider" min="-1000" max="1000"
+                                            step="1" id="Brightness">
+                                        <input id="Brightnessnum" type="text"></span>
+
+                                </div>
+
+                                <div class="form-field">
+                                    <label for="Contrast" class="form-label"
+                                        textforelement="labelContrast">Контрастность:</label>
+                                    <span class="sliderinput">
+                                        <input type="range" class="form-range desktop-slider" min="-1000"
+                                            max="1000" step="1" id="Contrast">
+                                        <input id="Contrastnum" type="text">
+                                    </span>
+                                </div>
+                                <!-- </fieldset> -->
+                                <button class="btn btn-primary mb-3 desktop-btn" id="ButtonScan"
+                                    textforelement="scanbtn">Сканировать</button>
+
+                                <!-- </form> -->
+                                <!-- </div> -->
+                            </form>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div id="Scanned"></div>
+                                <!-- <div class="card-body position-relative">
+                    </div> -->
+                                <div class="card-footer">
+                                    <button class="btn btn-primary mb-3" id="ButtonSave" data-bs-toggle="tooltip"
+                                        data-bs-placement="bottom" title="Сохранить">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                                        </svg></button>
+                                    <button class="btn btn-primary mb-3" id="ButtonSelect" data-bs-toggle="tooltip"
+                                        data-bs-placement="bottom" title="Включить выделение">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-textarea" viewBox="0 0 16 16">
+                                            <path
+                                                d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                        </svg>
+                                    </button>
+                                    <button class="btn btn-primary mb-3 " id="ButtonCrop" data-bs-toggle="tooltip"
+                                        data-bs-placement="bottom" title="Обрезать до выделения">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-crop" viewBox="0 0 16 16">
+                                            <path
+                                                d="M3.5.5A.5.5 0 0 1 4 1v13h13a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2H3.5a.5.5 0 0 1-.5-.5V4H1a.5.5 0 0 1 0-1h2V1a.5.5 0 0 1 .5-.5zm2.5 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4H6.5a.5.5 0 0 1-.5-.5z" />
+                                        </svg></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer window-footer">
+                    <button type="button" class="btn btn-primary desktop-btn" data-bs-dismiss="modal"
+                        textforelement="closebtn">Закрыть</button>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="toast-container">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <span class="window-icon"></span>
+                <strong class="me-auto">Внимание!</strong>
+                <!-- <small>11 mins ago</small> -->
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+            </div>
+            <div class="toast-body">
+                Сканер не найден
+            </div>
+        </div>
     </div>
 
 
-    <script>
-        //из отдельного расположения
-        //const url = "http://localhost:8080/api/";
-        //со встроенного сервера 
-        const url = getCookie("server_url") || "api/";
-        var server_url = document.getElementById("server_url");
-        server_url.value = url;
-        server_url.addEventListener("change", saveUrl);
-        function saveUrl(evt) {
-            setCookie("server_url", evt.target.value);
-            location.reload();
-        }
-
-
-        // Определяем функцию которая принимает в качестве параметров url и данные которые необходимо обработать:
-        const postData = async (url = '', data = {}) => {
-            // Формируем запрос
-            const response = await fetch(url, {
-                // Метод, если не указывать, будет использоваться GET
-                method: 'POST',
-                // Заголовок запроса
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                // Данные
-                body: JSON.stringify(data)
-            });
-            return response.json();
-        }
-        const scanWIA = async (url = '', data = {}) => {
-            // Формируем запрос
-            const response = await fetch(url, {
-                // Метод, если не указывать, будет использоваться GET
-                method: 'POST',
-                // Заголовок запроса
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                // Данные
-                body: JSON.stringify(data)
-            });
-            return response;
-        }
-
-        var Dpi = document.getElementById("Dpi");
-        var Color = document.getElementById("Color");
-        var FFormat = document.getElementById("FFormat");
-        var PFormat = document.getElementById("PFormat");
-        var Brightness = document.getElementById("Brightness");
-        var Brightnessnum = document.getElementById("Brightnessnum");
-        var Contrast = document.getElementById("Contrast");
-        var Contrastnum = document.getElementById("Contrastnum");
-
-        //загрузка параметров сканера
-        const jsonData = { "method": "GetScannerParameters", "sourceIndex": 0 };
-        postData(url + "GetScannerParameters", jsonData)
-            .then((data) => {
-                //console.log(data);
-                //Сканер
-                var Source = document.getElementById("Source");
-                var option = document.createElement("option");
-                option.text = data.sources.sourcesList[0].value;
-                option.value = 0;
-                Source.add(option);
-                //Формат страницы
-                //var PFormat = document.getElementById("PFormat");
-                data.allowedFormats.forEach(el => {
-                    var option = document.createElement("option");
-                    option.text = el.Name;
-                    option.value = JSON.stringify({ Width: el.Width, Height: el.Height, Name: el.Name });
-                    PFormat.add(option);
-                });
-                //Цвет
-                //var Color = document.getElementById("Color");
-                data.pixelTypes.forEach(el => {
-                    var option = document.createElement("option");
-                    option.text = el.Description;
-                    option.value = el.Id;
-                    Color.add(option);
-                });
-                //DPI
-                //var Dpi = document.getElementById("Dpi");
-                data.flatbedResolutions.forEach(el => {
-                    var option = document.createElement("option");
-                    option.text = el;
-                    option.value = el;
-                    Dpi.add(option);
-                });
-                //Формат файла
-                //var FFormat = document.getElementById("FFormat");
-                data.fileFormats.forEach(el => {
-                    var option = document.createElement("option");
-                    option.text = el.Name;
-                    option.value = el.Name;
-                    FFormat.add(option);
-                });
-
-                //восстановить последние установки сканирования
-                PFormat.selectedIndex = getCookie("PageFormat");
-                Color.selectedIndex = getCookie("ColorMode");
-                Dpi.selectedIndex = getCookie("dpi");
-                FFormat.selectedIndex = getCookie("FFormat");
-                Brightness.value = getCookie("Brightness");
-                Brightnessnum.value = getCookie("Brightness");
-                Contrast.value = getCookie("Contrast");
-                Contrastnum.value = getCookie("Contrast");
-
-            });
-
-        //Регулироака сканирования    
-        //Яркость
-
-        Brightnessnum.value = 0;
-        Brightness.addEventListener('change', onBrChange, false);
-        Brightnessnum.addEventListener('change', onBrnChange, false);
-        function onBrChange() {
-            //console.log(Brightness.value);
-            Brightnessnum.value = Brightness.value;
-        }
-        function onBrnChange() {
-            //console.log(Brightness.value);
-            Brightness.value = Brightnessnum.value;
-        }
-        //Контрастность
-
-        Contrastnum.value = 0;
-        Contrast.addEventListener('change', onCtChange, false);
-        Contrastnum.addEventListener('change', onCtnChange, false);
-        function onCtChange() {
-            //console.log(Contrast.value);
-            Contrastnum.value = Contrast.value;
-        }
-        function onCtnChange() {
-            //console.log(Contrast.value);
-            Contrast.value = Contrastnum.value;
-        }
-
-        //Сканирование
-        var ButtScan = document.getElementById("ButtonScan");
-        ButtScan.addEventListener('click', ScanClick, false);
-        var fileDate = null;
-
-        function ScanClick() {
-            ButtScan.setAttribute("disabled", "");
-            let scanParam = {
-                "method": "Scan",
-                "source": "0",
-                "dpi": Dpi.value,
-                "ColorMode": Number(Color.value),
-                "FFormat": FFormat.value,
-                "PageFormat": JSON.parse(PFormat.value),
-                "Brightness": Number(Brightnessnum.value),
-                "Contrast": Number(Contrastnum.value)
-            }
-            setCookie("dpi", Dpi.selectedIndex);
-            setCookie("ColorMode", Color.selectedIndex);
-            setCookie("FFormat", FFormat.selectedIndex);
-            setCookie("PageFormat", PFormat.selectedIndex);
-            setCookie("Brightness", Number(Brightnessnum.value));
-            setCookie("Contrast", Number(Contrastnum.value));
-
-
-            //console.log(scanParam);
-
-            scanWIA(url + "Scan", scanParam)
-                .then((data) => {
-                    //        console.log(data);
-                    let Scanned = document.getElementById("Scanned");
-                    var myimg = document.createElement("IMG");
-                    myimg.id = "origimg";
-                    if (Scanned.children.length > 0) {
-                        Scanned.replaceChildren();
-                    }
-
-                    data.blob().then(function (blob) {
-                        fileDate = blob;
-                        objectURL = URL.createObjectURL(fileDate);
-                        myimg.src = objectURL;
-                        Scanned.appendChild(myimg);
-                        ButtScan.removeAttribute("disabled");
-                        ButtSave.removeAttribute("disabled");
-                        ButtSelect.removeAttribute("disabled");
-                        //Butt.removeAttribute("disabled");
-
-                    })
-
-                });
-
-        }
-
-        //Скачать файл или ...
-        var ButtSave = document.getElementById("ButtonSave");
-        ButtSave.setAttribute("disabled", "");
-        ButtSave.addEventListener('click', SaveClick, false);
-        function SaveClick() {
-            let fileName = "file." + FFormat.value.toLowerCase();
-            let link = document.createElement('a');
-            link.download = fileName;
-            link.href = URL.createObjectURL(fileDate);
-            link.click();
-            URL.revokeObjectURL(link.href);
-        }
-        //Включить выделение
-        var ButtSelect = document.getElementById("ButtonSelect");
-        ButtSelect.setAttribute("disabled", "");
-        ButtSelect.addEventListener('click', SelectClick, false);
-        var MySelection;
-        function SelectClick() {
-            $('#origimg').imgAreaSelect({
-                handles: true,
-                onSelectEnd: function (img, selection) {
-                    MySelection = selection;
-                    ButtCrop.removeAttribute("disabled");
-                }
-            });
-
-        }
-
-
-        //Обрезать
-        var ButtCrop = document.getElementById("ButtonCrop");
-        ButtCrop.setAttribute("disabled", "");
-        ButtCrop.addEventListener('click', CropClick, false);
-        function CropClick() {
-
-            const canvas = document.createElement('canvas');//document.getElementById("mycanvas");
-            canvas.width=MySelection.width;
-            canvas.height=MySelection.height;
-            const ctx = canvas.getContext('2d');
-            let img = document.getElementById('origimg');
-            let kf1 = img.naturalWidth / img.width;
-            let kf2 = img.naturalHeight / img.height;
-
-            //console.log(img);
-            ctx.drawImage(img, MySelection.x1 * kf1, MySelection.y1 * kf2, MySelection.width * kf1, MySelection.height * kf2, 0, 0, MySelection.width, MySelection.height);
-
-            $('#origimg').imgAreaSelect({ remove: true });
-            let Scanned = document.getElementById("Scanned");
-            if (Scanned.children.length > 0) {
-                Scanned.replaceChildren();
-            }
-            var myimg = document.createElement("IMG");
-            myimg.id = "origimg";
-            myimg.src = canvas.toDataURL(fileDate.type);
-            Scanned.appendChild(myimg);
-
-            canvas.toBlob((blob) => {
-                fileDate = blob;
-            });
-
-
-            ButtCrop.setAttribute("disabled", "");
-
-        }
-
-        //для хранения последних настроек
-        function setCookie(key, value) {
-            var expires = new Date();
-            expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
-            document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
-        }
-
-        function getCookie(key) {
-            var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
-            return keyValue ? keyValue[2] : null;
-        }
-
-
-
-
-    </script>
-    <script src="assets/popper/popper.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
+<script src="assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="assets/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI JS -->
+<script src="assets/jquery-ui/dist/jquery-ui.min.js"></script>
+<script src="assets/imgareaselect/scripts/jquery.imgareaselect.dev.js"></script>
+<script src="app/app.js"></script>
+<script src="app/locale/locale.js"></script>
 
 </html>
