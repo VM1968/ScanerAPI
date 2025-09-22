@@ -159,7 +159,14 @@ Content-Type: application/json;<br>
 <br>
 (Body - raw - JSON)<br>
 <pre>
-{ "filelist": ["19-09-2025-09-17-16-2160046.png","19-09-2025-09-17-54-0901705.png"] }
+{
+"filelist":
+	[
+		{"filename":"22-09-2025-11-45-32-1729418.png","ls":false},
+		{"filename":"22-09-2025-11-45-57-2696859.png","ls":true},
+		{"filename":"22-09-2025-11-46-30-5452102.png","ls":false}
+	]
+}
 </pre>
 <strong>Response Formats</strong>
 Content-Disposition: attachment; filename=file.pdf<br>
