@@ -36,24 +36,24 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a id="" class="nav-link desktop-btn" data-bs-toggle="modal"
-                                data-bs-target="#scanFormWindow" textforelement="scanbtn" href="#">Сканировать</a>
+                               data-bs-target="#scanFormWindow" textforelement="scanbtn" href="#">Сканировать</a>
                         </li>
                         <!-- <li class="nav-item"><a class="nav-link<?=$page == 'recipe' ? ' active' : ''?>"
-                        href="?page=recipe">Recipe</a></li>
-                <li class="nav-item"><a class="nav-link<?=$page == 'calc' ? ' active' : ''?>" href="?page=calc">Cost
-                        Calculator</a></li>
-                <li class="nav-item ms-auto"><span class="nav-link disabled">User:
-                        <?=htmlspecialchars($_SESSION['user'])?>
-                    </span></li>
-                <li class="nav-item"><a class="nav-link text-danger" href="?page=logout">Logout</a></li> -->
+                                href="?page=recipe">Recipe</a></li>
+                        <li class="nav-item"><a class="nav-link<?=$page == 'calc' ? ' active' : ''?>" href="?page=calc">Cost
+                                Calculator</a></li>
+                        <li class="nav-item ms-auto"><span class="nav-link disabled">User:
+                                <?=htmlspecialchars($_SESSION['user'])?>
+                            </span></li>
+                        <li class="nav-item"><a class="nav-link text-danger" href="?page=logout">Logout</a></li> -->
                     </ul>
                     <select id="langSelect" class="d-flex" style="width:120px;">
                         <option value="en">English</option>
@@ -91,12 +91,13 @@
                 <div class="modal-header window-titlebar">
                     <span class="window-icon"></span>
                     <span class="modal-title window-title" style="display: inline-block" id="scanFormWindowLabel"
-                        textforelement="scanFormWindowLabel">Сканирование</span>
+                          textforelement="scanFormWindowLabel">Сканирование</span>
                     <div class="window-controls">
                         <!-- <button class="control-btn"></button>
                         <button class="control-btn"></button> -->
                         <button class="control-btn closebtn" data-bs-dismiss="modal" data-bs-toggle="tooltip"
-                            title="Закрыть" textforelement="closebtn"><i class="bi bi-x-square"></i>
+                                title="Закрыть" textforelement="closebtn">
+                            <i class="bi bi-x-square"></i>
                         </button>
                     </div>
                 </div>
@@ -133,26 +134,30 @@
                                 </div>
                                 <div class="form-field">
                                     <label for="Brightness" class=" form-label" id="Brightnesslab"
-                                        textforelement="labelBrightness">Яркость:</label>
-                                    <span class="sliderinput"><input type="range"
-                                            class=" form-range desktop-slider" min="-1000" max="1000"
-                                            step="1" id="Brightness">
-                                        <input id="Brightnessnum" type="text"></span>
+                                           textforelement="labelBrightness">Яркость:</label>
+                                    <span class="sliderinput">
+                                        <input type="range"
+                                               class=" form-range desktop-slider" min="-1000" max="1000"
+                                               step="1" id="Brightness">
+                                        <input id="Brightnessnum" type="text">
+                                    </span>
 
                                 </div>
 
                                 <div class="form-field">
                                     <label for="Contrast" class="form-label"
-                                        textforelement="labelContrast">Контрастность:</label>
+                                           textforelement="labelContrast">Контрастность:</label>
                                     <span class="sliderinput">
                                         <input type="range" class="form-range desktop-slider" min="-1000"
-                                            max="1000" step="1" id="Contrast">
+                                               max="1000" step="1" id="Contrast">
                                         <input id="Contrastnum" type="text">
                                     </span>
                                 </div>
                                 <!-- </fieldset> -->
                                 <button class="btn btn-primary mb-3 desktop-btn" id="ButtonScan"
-                                    textforelement="scanbtn">Сканировать</button>
+                                        textforelement="scanbtn">
+                                    Сканировать
+                                </button>
 
                                 <!-- </form> -->
                                 <!-- </div> -->
@@ -163,30 +168,29 @@
                             <div class="card">
                                 <div id="Scanned"></div>
                                 <!-- <div class="card-body position-relative">
-                    </div> -->
+                                </div> -->
                                 <div class="card-footer">
                                     <button class="btn btn-primary mb-3" id="ButtonSave" data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" title="Сохранить">
+                                            data-bs-placement="bottom" title="Сохранить">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
-                                            <path
-                                                d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
-                                        </svg></button>
+                                             fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                            <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                                        </svg>
+                                    </button>
                                     <button class="btn btn-primary mb-3" id="ButtonSelect" data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" title="Включить выделение">
+                                            data-bs-placement="bottom" title="Включить выделение">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-textarea" viewBox="0 0 16 16">
-                                            <path
-                                                d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                             fill="currentColor" class="bi bi-textarea" viewBox="0 0 16 16">
+                                            <path d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                         </svg>
                                     </button>
                                     <button class="btn btn-primary mb-3 " id="ButtonCrop" data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" title="Обрезать до выделения">
+                                            data-bs-placement="bottom" title="Обрезать до выделения">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-crop" viewBox="0 0 16 16">
-                                            <path
-                                                d="M3.5.5A.5.5 0 0 1 4 1v13h13a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2H3.5a.5.5 0 0 1-.5-.5V4H1a.5.5 0 0 1 0-1h2V1a.5.5 0 0 1 .5-.5zm2.5 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4H6.5a.5.5 0 0 1-.5-.5z" />
-                                        </svg></button>
+                                             fill="currentColor" class="bi bi-crop" viewBox="0 0 16 16">
+                                            <path d="M3.5.5A.5.5 0 0 1 4 1v13h13a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2H3.5a.5.5 0 0 1-.5-.5V4H1a.5.5 0 0 1 0-1h2V1a.5.5 0 0 1 .5-.5zm2.5 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4H6.5a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +199,9 @@
                 </div>
                 <div class="modal-footer window-footer">
                     <button type="button" class="btn btn-primary desktop-btn" data-bs-dismiss="modal"
-                        textforelement="closebtn">Закрыть</button>
+                            textforelement="closebtn">
+                        Закрыть
+                    </button>
                 </div>
             </div>
         </div>
@@ -216,16 +222,15 @@
     </div>
 
 
+    <script src="assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="assets/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI JS -->
+    <script src="assets/jquery-ui/dist/jquery-ui.min.js"></script>
+    <script src="assets/imgareaselect/scripts/jquery.imgareaselect.dev.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/locale/locale.js"></script>
 
 </body>
-<script src="assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- jQuery -->
-<script src="assets/jquery/dist/jquery.min.js"></script>
-<!-- jQuery UI JS -->
-<script src="assets/jquery-ui/dist/jquery-ui.min.js"></script>
-<script src="assets/imgareaselect/scripts/jquery.imgareaselect.dev.js"></script>
-<script src="app/app.js"></script>
-<script src="app/locale/locale.js"></script>
-
 </html>

@@ -1,4 +1,3 @@
-// import "./locale/locale"
 $(document).ready(function () {
     $("#scanFormWindow").draggable({
         handle: ".modal-header" // Указываем, что перетаскивать можно за заголовок
@@ -10,7 +9,7 @@ $(document).ready(function () {
 //из отдельного расположения
 //const url = "http://localhost:8080/api/";
 //со встроенного сервера 
-const url = getCookie("server_url") || "api/";
+ const url = getCookie("server_url") || "api/";
 var server_url = document.getElementById("server_url");
 server_url.value = url;
 server_url.addEventListener("change", saveUrl);
@@ -313,7 +312,7 @@ function renderFileName() {
         tbody.innerHTML += `<tr>
                                 <td>${file.id}</td>
                                 <td>${file.filename}</td>
-                                <td><input disabled class="form-check-input" type="checkbox" value="" ${file.ls ? 'checked' : ''}></td>
+                                <td><input class="form-check-input" type="checkbox" value="" ${file.ls ? 'checked' : ''}></td>
                                 <td>
                                 <button class="btn btn-sm desktop-btn editfilebtn"  textforelement="editfilebtn">${translations[lang]['editfilebtn']}</button>
                                 <button class="btn btn-danger desktop-btn btn-sm " onclick="deleteFile(${file.id})" textforelement="delfilebtn">${translations[lang]['delfilebtn']}</button>
@@ -323,7 +322,7 @@ function renderFileName() {
     });
 
     $('.editfilebtn').on('click', function () {
-// console.log(this.parentElement.parentElement)
+        // console.log(this.parentElement.parentElement)
         let Scanned = document.getElementById("Scanned");
         var myimg = document.createElement("IMG");
         myimg.id = "origimg";
@@ -345,7 +344,7 @@ function renderFileName() {
                     ButtSelect.removeAttribute("disabled");
                 })
             })
-     
+
         scanWindow = new bootstrap.Modal(document.getElementById('scanFormWindow'));
         scanWindow.show();
 
@@ -370,10 +369,16 @@ function deleteFile(id) {
 }
 
 $('#PDFbtn').on('click', function () {
+    const tbody = document.querySelector('#scanList tbody');
     let filelist = []
-    fileList.forEach(el => {
-        filelist.push(el.filename)
-    })
+    // fileList.forEach(el => {
+    //     filelist.push(el.filename)
+    // })
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        filelist.push({ "filename": tbody.rows[i].cells[1].textContent, "ls": tbody.rows[i].cells[2].children[0].checked })
+    }
+
     scanWIA(url + "DoPDF", { filelist: filelist })
         //взвращает response
         .then((data) => {

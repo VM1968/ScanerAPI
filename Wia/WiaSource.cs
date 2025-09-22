@@ -73,6 +73,7 @@ namespace ScannerAPI.Wia
 
         public string Scan(ScannerAPI.ScanRequest request) {
             DeviceManager DeviceManager1 = new DeviceManager();
+            IniFile INI = new IniFile("config.ini");
 
             foreach (DeviceInfo di in DeviceManager1.DeviceInfos)
             {
@@ -116,12 +117,26 @@ namespace ScannerAPI.Wia
                 if (scanResult != null)
                 {
                     ImageFile image = (ImageFile)scanResult;
-                    string filePath = @"wwwroot\";
+                    
+                    string filePath = @"IMGtemp\";
+                    if (INI.KeyExists("ImgFolder", "IMG"))
+                    {
+                        filePath = INI.ReadINI("IMG", "ImgFolder");
+                    }
+                    else
+                    {
+                        INI.Write("IMG", "ImgFolder", filePath);
+                    }
                     if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
-                    string fileName = filePath + "file";
+
+
+                    string fileName = DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss-fffffff") + FileExt;
+
+                    var quality = 100;
+
                     //image.SaveFile(fileName);
-                    SaveImageToFile(image, fileName, WIA_FormatID, request.PageFormat);
-                    return "file";
+                    SaveImageToFile(image, filePath+fileName, WIA_FormatID, request.PageFormat,quality);
+                    return fileName;
                 }
                 else
                 {
@@ -145,7 +160,7 @@ namespace ScannerAPI.Wia
                 //Debug(string.Format("Get max Height success, value: " + maxHeight));
                 return maxHeight;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Debug(string.Format("Cant't obtain max height, error: " + e));
                 throw;
@@ -165,7 +180,7 @@ namespace ScannerAPI.Wia
                 //Debug(string.Format("Get max Width success, value: " + maxWidth));
                 return maxWidth;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Debug(string.Format("Cant't obtain max width, error: " + e));
                 throw;
@@ -187,8 +202,8 @@ namespace ScannerAPI.Wia
             var verticalResolutions = new List<float>();
             var horizontalResolutions = new List<float>();
 
-            Vector verticalResolutionsVector = null;
-            Vector horizontalResolutionsVector = null;
+            Vector? verticalResolutionsVector = null;
+            Vector? horizontalResolutionsVector = null;
 
             //Разрешения могут быть представлены либо списком в SubTypeValues, либо минимальным, максимальным значаниями и шагом (SubTypeMin, SubTypeMax, SubTypeStep)
             bool isVector;
@@ -352,7 +367,7 @@ namespace ScannerAPI.Wia
             //const string WIA_SCAN_Orientation = "6156"; //0 1
             //SetWIAProperty(properties, WIA_SCAN_Orientation, 0);
         }
-        private static void SaveImageToFile(ImageFile image, string fileName, string WIA_FormatID, PageFormat pf = null)
+        private static void SaveImageToFile(ImageFile image, string fileName, string WIA_FormatID, PageFormat pf = null, int quality = 100)
 
         {
             ImageProcess imgProcess = new ImageProcess();
@@ -373,16 +388,22 @@ namespace ScannerAPI.Wia
                 imgProcess.Filters[1].Properties.get_Item(ref p1).set_Value(ref pv1);
                 //image = imgProcess.Apply(image);
             }
+            //Quality
+            //if (WIA_FormatID == WIA.FormatID.wiaFormatJPEG) {
+            //imgProcess.Filters.Add(imgProcess.FilterInfos["Convert"].FilterID);
+            //imgProcess.Filters[1].Properties["FormatID"].set_Value("{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}");
+            //imgProcess.Filters[1].Properties["Quality"].set_Value(quality);
+            //    Object p1 = (Object)"Quality";
+            //    Object pv1 = (Object)quality;
+            //    imgProcess.Filters[1].Properties.get_Item(ref p1).set_Value(ref pv1);
+            //ImageFile image = myip.Apply(imageFile);
+            //}
 
             imgProcess.Filters.Add(convertFilterID, 0);
             SetWIAProperty(imgProcess.Filters[imgProcess.Filters.Count].Properties, "FormatID", WIA_FormatID);
 
             image = imgProcess.Apply(image);
             //image = image.RotateFlip(RotateFlipType.Rotate90FlipNone);
-            if (File.Exists(fileName))
-            {
-                File.Delete(fileName);
-            }
             image.SaveFile(fileName);
         }
 

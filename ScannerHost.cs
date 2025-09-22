@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Hosting.Server;
 using ScannerAPI;
 using ScannerAPI.Wia;
 
@@ -101,11 +100,17 @@ internal class ScannerHost
 
 
                 string filePath = INI.ReadINI("IMG", "ImgFolder");
+
+#pragma warning disable CS8604 // ¬озможно, аргумент-ссылка, допускающий значение NULL.
                 string fileName = wia.Scan(json);
+#pragma warning restore CS8604 // ¬озможно, аргумент-ссылка, допускающий значение NULL.
+
 
                 string filepath = filePath + fileName; //"wwwroot/" + wia.Scan(json);
+
                 string contentType = "image/" + json.FFormat.ToLower();        // установка mime-типа
-                                                                               //string downloadName = fileName;
+
+                              //string downloadName = fileName;
 
                 //context.Response.ContentType = contentType;
 
@@ -121,7 +126,9 @@ internal class ScannerHost
                 CreatePDF crtpdf = new CreatePDF();
 
                 string filePath = INI.ReadINI("PDF", "LastPDFFolder");
+                //#pragma warning disable CS8602 // –азыменование веро€тной пустой ссылки.
                 string fileName = crtpdf.createPDF(json.filelist);
+                //#pragma warning restore CS8602 // –азыменование веро€тной пустой ссылки.
                 string filepath = filePath + fileName;
 
                 //string contentType = "application/pdf";        // установка mime-типа
@@ -132,11 +139,14 @@ internal class ScannerHost
                 context.Response.Headers.ContentDisposition = "attachment; filename=" + fileName;
                 context.Response.Headers.Append("Access-Control-Expose-Headers", "Content-Disposition");
                 await response.SendFileAsync(filepath);
+                //await response.WriteAsJsonAsync(json);
             }
             else if (path == "/api/getImage" && method == "POST") { 
             var json = await request.ReadFromJsonAsync<FileRequest>();
                 string filePath = INI.ReadINI("IMG", "ImgFolder");
+#pragma warning disable CS8602 // –азыменование веро€тной пустой ссылки.
                 string fileName = json.filename;
+#pragma warning restore CS8602 // –азыменование веро€тной пустой ссылки.
 
                 string filepath = filePath + fileName; //"wwwroot/" + wia.Scan(json);
                 string contentType = "image/" + json.filename.Substring(json.filename.Length-3,3);        // установка mime-типа
